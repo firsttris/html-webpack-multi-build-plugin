@@ -9,7 +9,7 @@ But for newer browsers this transpiled code is unnecessary and probably slower t
 The Idea is to create two bundles, one modern es6+ bundle and one legacy es5 bundle.
 
 
-# What? How do you do that?
+### What? How do you do that?
 The Solution is to provide two script tags, one with type=module (es6+ code) and one with "nomodule" (es5 code).
 Modern Browser will now only load the script tag with type=module while legacy browser only load the script tag with "nomodule".
 
