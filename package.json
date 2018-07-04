@@ -1,0 +1,28 @@
+{
+  "name": "html-webpack-multi-build-plugin",
+  "version": "1.0.0",
+  "description": "simplifies creation of HTML file for multi-build configuration",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firsttris/html-webpack-multi-build-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "plugin",
+    "html-webpack-plugin",
+    "multi-build",
+    "module",
+    "nomodule",
+    "template"
+  ],
+  "author": "Tristan Teufel <tristanteufel@gmail.com> (https://github.com/firsttris)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/firsttris/html-webpack-multi-build-plugin/issues"
+  },
+  "homepage": "https://github.com/firsttris/html-webpack-multi-build-plugin#readme"
+}
