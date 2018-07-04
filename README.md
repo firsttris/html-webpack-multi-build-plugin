@@ -6,7 +6,7 @@ This plugin simplifies the creation of script tags for module and nomodule for a
 
 Most developers still transpile their code to ES5 and bundle it with polyfills to provide support for older browsers.
 But for newer browsers this transpiled code is unnecessary and probably slower then ES6+ code.
-The Idea is to create two bundles, one modern es6+ bundle and one legacy es6 bundle.
+The Idea is to create two bundles, one modern es6+ bundle and one legacy es5 bundle.
 The Solution is to provide two script tags, one with type=module (es6+ code) and one with "nomodule" (es5 code).
 Modern Browser will now only load the script tag with type=module while legacy browser only load the script tag with "nomodule".
 
