@@ -42,16 +42,25 @@ You should only use this addon for multi-builds, not for development..
 
 #### Example Usage:
 ```
+    // package.json
     "scripts": {
         build:multi": "webpack --env.build=multi"
     }
 
     .....
 
+    // legacy webpack config filename need's to include 'legacy' 
+    config.output.filename = '[name]_legacy.js';
+
+    // modern webpack config filename
+    config.output.filename = '[name].js';
+
+    // both webpack configs (legacy and modern) should include
+
     const htmlWebpackMultiBuildPlugin = require('html-webpack-multi-build-plugin');
     const multiBuildMode = process.env.build === 'multi'
 
-    base.plugins: [
+    config.plugins: [
         new htmlWebpackPlugin({
             inject: !multiBuildMode,
             template: multiBuildMode ? require.resolve('html-webpack-multi-build-plugin/template.ejs');, // or copy and modify
