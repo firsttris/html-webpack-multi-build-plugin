@@ -27,7 +27,7 @@ HtmlWebpackMultiBuildPlugin.prototype = {
     beforeHtmlGeneration: function(data, cb) {
         this.js = this.js.concat(data.assets.js);
         if (data.plugin.options.multiBuildMode) {
-            data.plugin.options.template = loaderPath + '!' + path.join(__dirname, 'template.ejs')
+            data.plugin.options.template = loaderPath + '!' + path.join(__dirname, 'template','template.ejs')
         }
         data.assets.js = this.js;
         data.plugin.options.modernScripts = this.js.filter((value) => value.indexOf('legacy') === -1);
