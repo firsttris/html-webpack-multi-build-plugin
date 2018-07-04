@@ -1,7 +1,4 @@
 'use strict';
-const path = require('path');
-const loaderPath = require.resolve('html-webpack-plugin/lib/loader.js');
-
 function HtmlWebpackMultiBuildPlugin(options) {
     this.options = options;
     this.js = [];
@@ -26,9 +23,6 @@ HtmlWebpackMultiBuildPlugin.prototype = {
 
     beforeHtmlGeneration: function(data, cb) {
         this.js = this.js.concat(data.assets.js);
-        if (data.plugin.options.multiBuildMode) {
-            data.plugin.options.template = loaderPath + '!' + path.join(__dirname, 'template.ejs')
-        }
         data.assets.js = this.js;
         data.plugin.options.modernScripts = this.js.filter((value) => value.indexOf('legacy') === -1);
         data.plugin.options.legacyScripts = this.js.filter((value) => value.indexOf('legacy') > 0);
