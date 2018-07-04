@@ -16,7 +16,7 @@ Modern Browser will now only load the script tag with type=module while legacy b
 ### Why do i need this addon?
 This plugin for html-webpack-plugin generates script tags for module and nomodule for a webpack multi build configuration.
 
-### Will some Browser still download both bundles?
+### Will some browser still download both bundles?
 
 Yeah some browser like Safari, IE11, Edge are downloading both bundles, but only executing one. 
 
@@ -37,7 +37,6 @@ We creating a script tag with module / nomodule and in this script tags we are d
 https://webpack.js.org/configuration/configuration-types/#exporting-multiple-configurations
 
 ### How to use this addon?
-
 You should only use this addon for multi-builds.
 
 ```
@@ -70,7 +69,9 @@ You should only use this addon for multi-builds.
 
 
 ### Sources
-https://github.com/jantimon/html-webpack-plugin/issues/782    
+
 https://philipwalton.com/articles/deploying-es2015-code-in-production-today/    
 https://github.com/philipwalton/webpack-esnext-boilerplate    
 https://jakearchibald.com/2017/es-modules-in-browsers/    
+https://github.com/jantimon/html-webpack-plugin/issues/782    
+https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1
