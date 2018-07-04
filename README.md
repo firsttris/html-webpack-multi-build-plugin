@@ -1,6 +1,6 @@
 # html-webpack-multi-build-plugin
 
-This plugin simplifies the creation of HTML files for multi build configuration.
+This plugin simplifies the creation of script tags for module and nomodule for a webpack multi build configuration.
 
 ### Why do you want to do this?
 
