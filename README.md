@@ -8,21 +8,15 @@ Most developers still transpile their code to ES5 and bundle it with polyfills t
 But for newer browsers this transpiled code is unnecessary and probably slower then ES6+ code.
 The Idea is to create two bundles, one modern es6+ bundle and one legacy es5 bundle.
 
-
 ### What? How do you do that?
-The Solution is to provide two script tags, one with type=module (es6+ code) and one with "nomodule" (es5 code).
+The solution is to provide two script tags, one with type=module (es6+ code) and one with "nomodule" (es5 code).
 Modern Browser will now only load the script tag with type=module while legacy browser only load the script tag with "nomodule".
-
-### Why do i need this addon?
-This plugin for html-webpack-plugin generates script tags for module and nomodule for a webpack multi build configuration.
 
 ### Will some browser still download both bundles?
 
-Yeah some browser like Safari, IE11, Edge are downloading both bundles, but only executing one. 
-
-We have integrated a clever fix for this.
-
-We creating a script tag with module / nomodule and in this script tags we are dynamically adding the script tags for the actual javascript resources.
+Some browser like Safari, IE11, Edge are downloading both bundles, but only executing one. 
+This plugin has integrated a clever fix for this.
+By creating a script tag with module / nomodule which dynamically injects the actual script tags for the javascript resources.
 
 ```
 <script type="module">
@@ -33,19 +27,31 @@ We creating a script tag with module / nomodule and in this script tags we are d
 </script>
 ```
 
+### Why do i need this addon?
+This plugin for html-webpack-plugin generates script tags for module and nomodule for a webpack multi build configuration.
+
+### Async CSS Loading
+The included template add's tags for async (non blocking) css
+```
+<link href="app.css" rel="stylesheet" media="nope!" onload="this.media='all'">
+```
+
 ### Read about webpack multi build configuration
 https://webpack.js.org/configuration/configuration-types/#exporting-multiple-configurations
 
 ### How to use this addon?
-You should only use this addon for multi-builds.
 
+Check out my [Example Project](https://github.com/firsttris/html-webpack-multi-build-plugin/tree/master/example)
+
+Summarized
 
 #### Package.json
 ```
     "scripts": {
         build:multi": "webpack --env.build=multi"
     }
-```    
+```
+
 #### webpack.config
 ```  
     // Legacy webpack config needs to include 'legacy' 
@@ -59,7 +65,9 @@ You should only use this addon for multi-builds.
     const htmlWebpackMultiBuildPlugin = require('html-webpack-multi-build-plugin');
     const multiBuildMode = process.env.build === 'multi'
 
-    const template = multiBuildMode ? require.resolve('html-webpack-multi-build-plugin/template.ejs') : require.resolve('html-webpack-plugin/default_index.ejs');
+    const template = multiBuildMode 
+    ? require.resolve('html-webpack-multi-build-plugin/template.ejs') 
+    : require.resolve('html-webpack-plugin/default_index.ejs');
 
     config.plugins: [
         new htmlWebpackPlugin(
