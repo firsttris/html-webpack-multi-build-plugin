@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <% if (Array.isArray(htmlWebpackPlugin.options.meta)) { %>
+        <% for (item of htmlWebpackPlugin.options.meta) { %>
+        <meta<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>>
+        <% } %>
+    <% } %>
+    <style>
+            #overlay {
+                position: fixed;
+                width: 100%; 
+                height: 100%;
+                top: 0; 
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 2;
+                background-color: white;
+            }
+            .loader {
+                position: absolute;
+                left: 45%;
+                top: 35%;
+                border: 16px solid #f3f3f3;
+                border-top: 16px solid black;
+                border-radius: 50%;
+                width: 120px;
+                height: 120px;
+                animation: spin 2s linear infinite;
+              }
+        
+              @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+              }
+     </style>
+     <% for (key in htmlWebpackPlugin.files.css) { %>
+         <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet" media="nope!" onload="this.media='all'">
+     <% } %>
+  </head>
+  <body>
+  
+  <% if (htmlWebpackPlugin.options.appMountId) { %>
+  <div id="<%= htmlWebpackPlugin.options.appMountId %>">
+        <div id="overlay">
+            <div id="spinner" class="loader"></div>
+        </div>
+  </div>
+  <% } %>
+
+  <script type="module">
+            <% for (key in htmlWebpackPlugin.options.modernScripts) { %>
+                var script<%= [key] %> = document.createElement('script');
+                script<%= [key] %>.type = 'text/javascript';
+                script<%= [key] %>.src = '<%= htmlWebpackPlugin.options.modernScripts[key] %>';
+                document.body.appendChild(script<%= [key] %>);
+            <% } %>
+  </script>
+
+    <script nomodule>
+            <% for (key in htmlWebpackPlugin.options.legacyScripts) { %>
+                var script<%= [key] %> = document.createElement('script');
+                script<%= [key] %>.type = 'text/javascript';
+                script<%= [key] %>.src = '<%= htmlWebpackPlugin.options.legacyScripts[key] %>';
+                document.body.appendChild(script<%= [key] %>);
+            <% } %>
+    </script>
+    
+  </body>
+</html>

@@ -39,30 +39,35 @@ https://webpack.js.org/configuration/configuration-types/#exporting-multiple-con
 ### How to use this addon?
 You should only use this addon for multi-builds.
 
+
+#### Package.json
 ```
-    // PACKAGE.JSON
     "scripts": {
         build:multi": "webpack --env.build=multi"
     }
-
-    .....
-    // WEBPACK CONFIG
-    // Legacy webpack config filename need's to include 'legacy' 
+```    
+#### webpack.config
+```  
+    // Legacy webpack config needs to include 'legacy' 
     config.output.filename = '[name]_legacy.js';
 
-    // Modern webpack config filename should not include 'legacy'
+    // Modern webpack config should not include 'legacy'
     config.output.filename = '[name].js';
 
-    // both webpack configs (Legacy and Modern) should include htmlWebpackPlugin and htmlWebpackMultiBuildPlugin
+    // both webpack configs should include htmlWebpackPlugin and htmlWebpackMultiBuildPlugin
 
     const htmlWebpackMultiBuildPlugin = require('html-webpack-multi-build-plugin');
     const multiBuildMode = process.env.build === 'multi'
 
+    const template = multiBuildMode ? require.resolve('html-webpack-multi-build-plugin/template.ejs') : require.resolve('html-webpack-plugin/default_index.ejs');
+
     config.plugins: [
-        new htmlWebpackPlugin({
-            inject: !multiBuildMode,
-            template: multiBuildMode ? require.resolve('html-webpack-multi-build-plugin/template.ejs');, // or copy and modify
-        }),
+        new htmlWebpackPlugin(
+            {
+                inject: !multiBuildMode,
+                template
+            }
+        )
         new htmlWebpackMultiBuildPlugin()
     ]
 ```
