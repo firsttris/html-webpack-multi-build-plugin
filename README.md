@@ -2,6 +2,8 @@
 
 This plugin simplifies the creation of script tags for module and nomodule for a webpack multi build configuration.
 
+[![npm version](https://badge.fury.io/js/html-webpack-multi-build-plugin.svg)](http://badge.fury.io/js/html-webpack-multi-build-plugin)
+
 ### Why do you want to do this?
 
 Most developers still transpile their code to ES5 and bundle it with polyfills to provide support for older browsers.
@@ -57,18 +59,16 @@ Summarized
     // Legacy webpack config needs to include 'legacy' 
     config.output.filename = '[name]_legacy.js';
 
-    // Modern webpack config should not include 'legacy'
+    // Modern webpack config must not include 'legacy'
     config.output.filename = '[name].js';
 
-    // both webpack configs should include htmlWebpackPlugin and htmlWebpackMultiBuildPlugin
-
+    // Both webpack configs must include htmlWebpackPlugin and htmlWebpackMultiBuildPlugin
     const htmlWebpackMultiBuildPlugin = require('html-webpack-multi-build-plugin');
     const multiBuildMode = process.env.build === 'multi'
-
     const template = multiBuildMode 
     ? require.resolve('html-webpack-multi-build-plugin/template.ejs') 
     : require.resolve('html-webpack-plugin/default_index.ejs');
-
+    
     config.plugins: [
         new htmlWebpackPlugin(
             {
