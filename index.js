@@ -13,6 +13,7 @@ HtmlWebpackMultiBuildPlugin.prototype = {
                     'HtmlWebpackMultiBuildPlugin',
                     this.beforeHtmlGeneration.bind(this),
                 );
+                compiler.hooks.watchRun.tap('HtmlWebpackMultiBuildPlugin', () => this.js.length = 0);
             });
         } else {
             compiler.plugin('compilation', compilation => {
