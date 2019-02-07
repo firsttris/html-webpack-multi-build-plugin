@@ -1,6 +1,7 @@
 'use strict';
 function HtmlWebpackMultiBuildPlugin(options) {
     this.options = options;
+    this.outputFileNameRegex = [];
     this.js = [];
 }
 
