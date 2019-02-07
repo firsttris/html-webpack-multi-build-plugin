@@ -25,6 +25,7 @@ HtmlWebpackMultiBuildPlugin.prototype = {
     },
 
     beforeHtmlGeneration: function(data, cb) {
+        this.clearOldScripts(data);
         this.js = this.js.concat(data.assets.js);
         data.assets.js = this.js;
         data.plugin.options.modernScripts = this.js.filter((value) => value.indexOf('legacy') === -1);
@@ -48,7 +49,6 @@ HtmlWebpackMultiBuildPlugin.prototype = {
         }
     },
     clearOldScripts: function(data) {
-        this.clearOldScripts(data);
         this.outputFileNameRegex.forEach(r => {
             data.assets.js.forEach(a => {
                 // we have one of our entries
