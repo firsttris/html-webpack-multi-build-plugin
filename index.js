@@ -1,4 +1,5 @@
 'use strict';
+
 function HtmlWebpackMultiBuildPlugin(options) {
   this.options = options;
   this.outputFileNameRegex = [];
@@ -6,7 +7,7 @@ function HtmlWebpackMultiBuildPlugin(options) {
 }
 
 HtmlWebpackMultiBuildPlugin.prototype = {
-  apply: function(compiler) {
+  apply: function (compiler) {
     this.createOutputRegexes(compiler.options);
 
     if (compiler.hooks) {
@@ -24,7 +25,7 @@ HtmlWebpackMultiBuildPlugin.prototype = {
     }
   },
 
-  beforeHtmlGeneration: function(data, cb) {
+  beforeHtmlGeneration: function (data, cb) {
     this.clearOldScripts(data);
     this.js = this.js.concat(data.assets.js);
     data.assets.js = this.js;
@@ -32,7 +33,7 @@ HtmlWebpackMultiBuildPlugin.prototype = {
     data.plugin.options.legacyScripts = this.js.filter(value => value.indexOf('legacy') > 0);
     cb(null, data);
   },
-  createOutputRegexes: function(options) {
+  createOutputRegexes: function (options) {
     if (options.output && options.output.filename) {
       // default webpack entry
       let entry = ['main'];
@@ -54,10 +55,8 @@ HtmlWebpackMultiBuildPlugin.prototype = {
         }
       });
     }
-
-    console.log(this.outputFileNameRegex);
   },
-  clearOldScripts: function(data) {
+  clearOldScripts: function (data) {
     this.outputFileNameRegex.forEach(r => {
       data.assets.js.forEach(a => {
         // we have one of our entries
