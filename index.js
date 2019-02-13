@@ -9,7 +9,7 @@ HtmlWebpackMultiBuildPlugin.prototype = {
         if (compiler.hooks) {
             // webpack 4 support
             compiler.hooks.compilation.tap('HtmlWebpackMultiBuildPlugin', compilation => {
-                compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration.tapAsync(
+                compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration.tap(
                     'HtmlWebpackMultiBuildPlugin',
                     this.beforeHtmlGeneration.bind(this),
                 );
@@ -26,7 +26,9 @@ HtmlWebpackMultiBuildPlugin.prototype = {
         data.assets.js = this.js;
         data.plugin.options.modernScripts = this.js.filter((value) => value.indexOf('legacy') === -1);
         data.plugin.options.legacyScripts = this.js.filter((value) => value.indexOf('legacy') > 0);
-        cb(null, data);
+        if (cb) {
+          cb(null, data);
+        }
     },
 };
 
