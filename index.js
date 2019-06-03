@@ -1,7 +1,9 @@
 'use strict';
+let js = [];
+let run = 0;
+
 function HtmlWebpackMultiBuildPlugin(options) {
     this.options = options;
-    this.js = [];
 }
 
 HtmlWebpackMultiBuildPlugin.prototype = {
@@ -9,10 +11,19 @@ HtmlWebpackMultiBuildPlugin.prototype = {
         if (compiler.hooks) {
             // webpack 4 support
             compiler.hooks.compilation.tap('HtmlWebpackMultiBuildPlugin', compilation => {
-                compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration.tapAsync(
+                if (compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration) {
+                  compilation.hooks.htmlWebpackPluginBeforeHtmlGeneration.tapAsync(
                     'HtmlWebpackMultiBuildPlugin',
                     this.beforeHtmlGeneration.bind(this),
-                );
+                  );
+                } else {
+                  var HtmlWebpackPlugin = require('html-webpack-plugin');
+                  var hooks = HtmlWebpackPlugin.getHooks(compilation);
+                  hooks.beforeAssetTagGeneration.tapAsync(
+                      'HtmlWebpackMultiBuildPlugin',
+                      this.beforeHtmlGeneration.bind(this),
+                  );
+                }
             });
         } else {
             compiler.plugin('compilation', compilation => {
@@ -22,10 +33,14 @@ HtmlWebpackMultiBuildPlugin.prototype = {
     },
 
     beforeHtmlGeneration: function(data, cb) {
-        this.js = this.js.concat(data.assets.js);
-        data.assets.js = this.js;
-        data.plugin.options.modernScripts = this.js.filter((value) => value.indexOf('legacy') === -1);
-        data.plugin.options.legacyScripts = this.js.filter((value) => value.indexOf('legacy') > 0);
+        ++run;
+        js = js.concat(data.assets.js);
+        data.assets.js = js;
+        if (run === 2) {
+            data.plugin.options.modernScripts = js.filter((value) => value.indexOf('legacy') === -1);
+            data.plugin.options.legacyScripts = js.filter((value) => value.indexOf('legacy') > 0);
+        }
+
         cb(null, data);
     },
 };
