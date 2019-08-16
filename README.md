@@ -4,6 +4,21 @@ This plugin simplifies the creation of script tags for module and nomodule for a
 
 [![npm version](https://badge.fury.io/js/html-webpack-multi-build-plugin.svg)](http://badge.fury.io/js/html-webpack-multi-build-plugin)
 
+### Proof of Concept
+
+Please see this project more as a proof of concept then a fully fledged solution.
+
+One day my supervisor gave me the following task:
+I should create a build job which creates two bundles. 
+One bundle with polyfills for older browser, and one bundle with modern-js for newer browsers. 
+So we researched for ways to achieve this. 
+This respository contains a POC and all information we researched to this topic.
+We even successully used the plugin in a few projects.
+
+If you think something is wrong with this approach please do not hesitate to create a issue.
+If you have an idea how to make this better, we are very happy about any clarification or contribution.
+We know there are currently some down sides like the disabled preloading. 
+
 ### Why do you want to do this?
 
 Most developers still transpile their code to ES5 and bundle it with polyfills to provide support for older browsers.
@@ -42,7 +57,6 @@ The included template add's tags for async (non blocking) css
 https://webpack.js.org/configuration/configuration-types/#exporting-multiple-configurations
 
 ### How to use this addon?
-
 Check out my [Example Project](https://github.com/firsttris/html-webpack-multi-build-plugin/tree/master/example)
 
 Summarized
